@@ -1,4 +1,3 @@
-@document_act
 Feature: Документ типа Акт
 
   # Добавляем документ
@@ -9,7 +8,7 @@ Feature: Документ типа Акт
     Then Нажимаем на организацию
     And Нажимаем на реестр Документы
     And Нажимаем на Черновики
-    Then В URL есть значение "https://edo-2.cloud.astral-dev.ru/dcbf5864-b9cb-4ec7-801d-0e7a831b6bc2/drafts"
+    Then В URL есть значение "https://edo-2.cloud.astral-dev.ru/0222550a-29d8-4647-94f2-a1f6e34230e0/drafts"
     When Импортируем отчет с именем "DP_REZRUISP_v5_01.xml"
     Then Проверка имени файла "Акт"
     Then Статус документа "Отсутствует получатель"

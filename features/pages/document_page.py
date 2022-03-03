@@ -8,11 +8,11 @@ class DocumentPage(BasePage):
 
     def open_incoming(self):
         """Открыть реестр Входящие у получателя"""
-        self.browser.get(urljoin(self.base_url, '/8be142a1-5b65-4fd8-b56a-e6ad69d7d1ae/documents/incoming'))
+        self.browser.get(urljoin(self.base_url, '/82aecc39-0c5e-4f9f-b2d2-59f84e3ff5a8/documents/incoming'))
 
     def open_incoming_sender(self):
-        """Открыть реестр Входящие у получателя"""
-        self.browser.get(urljoin(self.base_url, '/dcbf5864-b9cb-4ec7-801d-0e7a831b6bc2/documents/outgoing'))
+        """Открыть реестр Исходящие у отправителя"""
+        self.browser.get(urljoin(self.base_url, '/0222550a-29d8-4647-94f2-a1f6e34230e0/documents/outgoing'))
 
     def input_value_in_field_cancel(self, value: str) -> None:
         WebDriverWait(self.browser, self.WAIT_TIMEOUT).until(
