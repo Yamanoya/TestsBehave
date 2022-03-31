@@ -1,6 +1,11 @@
 Feature: Документ типа Акт
 
   # Добавляем документ
+
+  @act_singing
+  @act_cancel
+  @act_no_cancel
+  @act_decline
   @add_and_sending_document_act
   @fixture.browser.chrome
   Scenario: Работа с документом типа Акт
@@ -8,7 +13,7 @@ Feature: Документ типа Акт
     Then Нажимаем на организацию
     And Нажимаем на реестр Документы
     And Нажимаем на Черновики
-    Then В URL есть значение "https://edo-2.cloud.astral-dev.ru/0222550a-29d8-4647-94f2-a1f6e34230e0/drafts"
+    Then В URL есть значение "https://edo-2.cloud.astral-dev.ru/dcbf5864-b9cb-4ec7-801d-0e7a831b6bc2/drafts"
     When Импортируем отчет с именем "DP_REZRUISP_v5_01.xml"
     Then Проверка имени файла "Акт"
     Then Статус документа "Отсутствует получатель"
@@ -24,6 +29,10 @@ Feature: Документ типа Акт
     And Проверяем что документ в статусе Требуется ответная подпись
 
     # Подписываем документ
+  @act_singing
+  @act_cancel
+  @act_no_cancel
+  @act_decline
   @accept_document_act
   @fixture.browser.chrome
   Scenario: ДО с подписью документа
@@ -38,6 +47,8 @@ Feature: Документ типа Акт
 
 
     # Аннулируем документ
+  @act_cancel
+  @act_no_cancel
   @cancel_document_act
   @fixture.browser.chrome
   Scenario: ДО с аннулированием
@@ -52,6 +63,7 @@ Feature: Документ типа Акт
 
 
     # Подтверждаем аннулирование документа со стороны отправителя
+  @act_cancel
   @accept_cancel_document_act
   @fixture.browser.chrome
   Scenario: До с аннулированием, принимаем аннулирование
@@ -65,6 +77,7 @@ Feature: Документ типа Акт
 
 
     # Отклоняем аннулирование со стороны отправителя
+  @act_no_cancel
   @no_accept_cancel_document_act
   @fixture.browser.chrome
   Scenario: ДО с аннулированием но не принимаем его со стороны отправителя
@@ -80,6 +93,7 @@ Feature: Документ типа Акт
     Then Переходим в режим чтения текста и видим текст 123
 
     # Отклоняем документ
+  @act_decline
   @decline_document_act
   @fixture.browser.chrome
   Scenario: ДО с отклонением документа

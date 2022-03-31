@@ -20,6 +20,10 @@ def given_incoming_page(context):
     DocumentPage(context.browser).open_incoming_sender()
     time.sleep(1)
 
+@Given ('Открыт реестр Черновики')
+def open_draft(context):
+    DocumentPage(context.browser).open_draft()
+    time.sleep(1)
 
 @When('Импортируем отчет с именем "{name}"')
 def import_file(ctx: Context, name: str):
@@ -45,7 +49,7 @@ def click_at_sign(ctx: Context):
 def click(ctx: Context):
     """Нажать на Выбрать организацю"""
     ctx.pages.base.click(DocumentPageLocators.TAKE_ORGANIZATION)
-    time.sleep(1)
+    time.sleep(2)
 
 
 @Then('Статус документа "{name_status}"')
@@ -91,14 +95,14 @@ def check_quantity_sign_in_button(ctx: Context, name_document: str):
 def click_at_sendig_document(ctx: Context):
     """Нажать на кнопку Выбрать получателя"""
     ctx.pages.base.click(DocumentPageLocators.TAKE_AGENT)
-    time.sleep(1)
+    time.sleep(2)
 
 
 @When('Закрываем форму')
 def click_at_clear_field(ctx: Context):
     """Нажать на пустое поле"""
     ctx.pages.base.click(DocumentPageLocators.CLOSE_BUTTON)
-
+    time.sleep(1)
 
 @Then('Нажимаем кнопку отправить')
 def click_at_clear_field(ctx: Context):
@@ -171,6 +175,11 @@ def check_registry(ctx: Context, value_one: str, value_two: str):
     assert name == value_one, f'Должно быть "{name}", ожидалось "{value_one}"'
     name_two = ctx.pages.base.get_text_from_element(DocumentPageLocators.REGISTRY_BENEFICIARY_TITLE)
     assert name_two == value_two, f'Должно быть "{name}", ожидалось "{value_two}"'
+
+@Then('Проверяем что появилось {value_one}')
+def check_registry(ctx: Context, value_one: str):
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.REGISTRY_RECEIPT_NOTICE)
+    assert name == value_one, f'Должно быть "{name}", ожидалось "{value_one}"'
 
 @Then('Проверяем внутри документа статус {value_status}')
 def check_at_status_value(ctx: Context, value_status: str):
@@ -299,3 +308,7 @@ def check_status_document(ctx: Context, value: str, value_notification: str):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.REGISTER_NOTIFICATION, timeout=30)
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.REGISTER_NOTIFICATION)
     assert name == value_notification, f'Должно быть "{name}", ожидалось "{value_notification}"'
+
+@Then('Кликаем по флагу Ответная подпись')
+def click_at_flag(ctx: Context):
+    ctx.pages.base.click(DocumentPageLocators.FLAG_RESPONSE_SIGNATURE)

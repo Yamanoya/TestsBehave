@@ -1,17 +1,18 @@
 import os
-from datetime import datetime
 import time
-from typing import List, Tuple
-from selenium.webdriver import Remote as RemoteWebDriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from config import CONFIG, SCREENSHOTS_PATH
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.webdriver.common.action_chains import ActionChains
+from datetime import datetime
+from typing import Tuple
 
-from features.locators.document_page import DocumentPageLocators
-from features.locators.auth_page import AuthPageLocators
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver import Remote as RemoteWebDriver
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.webdriver.support.ui import WebDriverWait
+
+from config import CONFIG, SCREENSHOTS_PATH
 from features.locators.agents_page import AgentsLocators
+from features.locators.auth_page import AuthPageLocators
+from features.locators.document_page import DocumentPageLocators
+
 
 class BasePage:
     """Базовый класс, от которого остальные классы Page наследуют общую, присущую всем функциональность"""

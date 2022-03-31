@@ -1,6 +1,10 @@
 Feature: Документ типа Торг-12
 
   # Добавляем документ и отправляем его
+  @torg_singing
+  @torg_cancel
+  @torg_no_cancel
+  @torg_decline
   @add_and_sending_document_torg
   @fixture.browser.chrome
   Scenario: Работа с документом типа Торг-12
@@ -8,7 +12,7 @@ Feature: Документ типа Торг-12
     Then Нажимаем на организацию
     And Нажимаем на реестр Документы
     And Нажимаем на Черновики
-    Then В URL есть значение "https://edo-2.cloud.astral-dev.ru/0222550a-29d8-4647-94f2-a1f6e34230e0/drafts"
+    Then В URL есть значение "https://edo-2.cloud.astral-dev.ru/dcbf5864-b9cb-4ec7-801d-0e7a831b6bc2/drafts"
     When Импортируем отчет с именем "DP_TOVTORGPR_v5_01.xml"
     Then Проверка имени файла "Торг-12"
     Then Статус документа "Отсутствует получатель"
@@ -24,6 +28,10 @@ Feature: Документ типа Торг-12
     And Проверяем что документ в статусе Требуется ответная подпись
 
     # Подписываем документ
+  @torg_singing
+  @torg_cancel
+  @torg_no_cancel
+  @torg_decline
   @accept_document_torg
   @fixture.browser.chrome
   Scenario: ДО с подписью документа
@@ -38,6 +46,8 @@ Feature: Документ типа Торг-12
 
 
     # Аннулируем документ
+  @torg_cancel
+  @torg_no_cancel
   @cancel_document_torg
   @fixture.browser.chrome
   Scenario: ДО с аннулированием
@@ -52,6 +62,7 @@ Feature: Документ типа Торг-12
 
 
     # Подтверждаем аннулирование документа со стороны отправителя
+  @torg_cancel
   @accept_cancel_document_torg
   @fixture.browser.chrome
   Scenario: До с аннулированием, принимаем аннулирование
@@ -66,6 +77,7 @@ Feature: Документ типа Торг-12
 
     # Отклоняем аннулирование со стороны отправителя
   @no_accept_cancel_document_torg
+  @torg_no_cancel
   @fixture.browser.chrome
   Scenario: ДО с аннулированием но не принимаем его со стороны отправителя
     Given Открыт реестр Исходящих документов со стороны отправителя
@@ -80,6 +92,7 @@ Feature: Документ типа Торг-12
     Then Переходим в режим чтения текста и видим текст 123
 
     # Отклоняем документ
+  @torg_decline
   @decline_document_torg
   @fixture.browser.chrome
   Scenario: ДО с отклонением документа

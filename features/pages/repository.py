@@ -32,7 +32,6 @@ class PageRepository:
     def main(self):
         return MainPage(self.context.browser)
 
-
     @lazy_property
     def identity(self):
         return AuthPage(self.context.browser)
@@ -44,4 +43,3 @@ class PageRepository:
     @lazy_property
     def document(self):
         return DocumentPage(self.context.browser)
-

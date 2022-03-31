@@ -156,3 +156,6 @@ class DocumentPageLocators:
 
     # Статус документа Отклонен
     STATUS_DOCUMENT_DECLINE = (By.XPATH, "//nav/div/div[2]")
+
+    # Флаг Ответная подпись
+    FLAG_RESPONSE_SIGNATURE = (By.XPATH, "//span[contains(.,'Ответная подпись')]")

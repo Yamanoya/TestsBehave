@@ -1,12 +1,3 @@
-import os
-from datetime import datetime
-import time
-from typing import List, Tuple
-from selenium.webdriver import Remote as RemoteWebDriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from config import CONFIG, SCREENSHOTS_PATH
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from features.pages.base_page import BasePage
 from urllib.parse import urljoin

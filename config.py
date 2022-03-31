@@ -13,7 +13,7 @@ SCREENSHOTS_PATH = os.path.join(BASE_PATH, "temp", "screenshots")
 SETTINGS = {
     "prod": {
         "baseUrl": "https://edo-2.cloud.astral-dev.ru/",
-        "mail": "astraledowork@mail.ru",
+        "mail": "astraledotest@mail.ru",
         "password": "MakI123456",
     }
 }
