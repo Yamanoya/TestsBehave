@@ -17,7 +17,10 @@ class DocumentPageLocators:
     RES_CHER = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/nav[1]/ul[1]/li[1]/ul[1]/div[1]/div[1]/div[3]/a[1]/div[1]")
 
     # Локатор для получения текста статуса документа
-    STATUS_DOCUMENT = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/a[1]/div[4]")
+    STATUS_DOCUMENT = (By.XPATH, "//a/div[4]")
+
+    # Локатор для выбора документа
+    SELECT_DOCUMENT = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/a[1]")
 
     # Имя документа внутри
     NAME_DOCUMENT = (By.XPATH, "//nav/div/div")
@@ -58,11 +61,12 @@ class DocumentPageLocators:
     # Кнопка Обновить список и перейти к документам
     BUTTON_REFRESH_LIST = (By.XPATH, "//span[contains(.,'Обновить список и перейти к документам')]")
 
-    # Кликаем по документу
+    # Выбираем документ
     DOCUMENT_ADD_LOCATOR = (By.XPATH, "//a/div[2]/div")
 
     # Кликаем по документу в реестре Входящие
     DOCUMENT_INCOMING = (By.XPATH, "//div[@id='root']/div/div/div[2]/main/div/ul/li/a")
+
 
     # Кнопка подписать документ внутри документа
     SIGN_A_DOCUMENT = (By.XPATH, "//span[contains(.,'Подписать документ')]")
@@ -103,14 +107,14 @@ class DocumentPageLocators:
     # Кнопка Принять аннулирование у отправителя
     BUTTON_ACCEPT_CANCEL_IN_DOCUMENT = (By.XPATH, "//span[contains(.,'Принять')]")
 
-    #Сообщение Аннулирование одобрено
+    # Сообщение Аннулирование одобрено
     CANCEL_IS_OKAY = (By.XPATH, "//div[2]/div/div/div/div/div/div/div/div")
 
     # Статус документа внутри Аннулирован
     DOCUMENT_IS_CANCEL = (By.XPATH, "//nav/div/div[2]")
 
     # Ссылка в документе Документ Аннулирован
-    DOCUMENT_IS_CANCEL_IN_DOCUMENT = (By.XPATH, "//a/div/div")
+    DOCUMENT_IS_CANCEL_IN_DOCUMENT = (By.XPATH, "//nav/div/div[2]")
 
     # Документ в Исходящих в статусе Требуется аннулирование
     DOCUMENT_IN_STATUS_CANCEL = (By.XPATH, "//span[contains(.,'Требуется аннулирование')]")
@@ -159,3 +163,6 @@ class DocumentPageLocators:
 
     # Флаг Ответная подпись
     FLAG_RESPONSE_SIGNATURE = (By.XPATH, "//span[contains(.,'Ответная подпись')]")
+
+    # Сообщение о 0 байтах
+    NULL_BYTES = (By.XPATH, "//li[contains(.,'0ByteNeformal.txt - Размер файла не может быть меньше 1 Байт')]")

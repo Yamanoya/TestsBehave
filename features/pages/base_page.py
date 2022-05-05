@@ -69,7 +69,7 @@ class BasePage:
         return WebDriverWait(self.browser, self.WAIT_TIMEOUT).until(
             ec.element_to_be_clickable(locator)).text
 
-    def check_url_contains_value(self, value: str) -> bool:
+    def check_url_contains_value(self) -> bool:
         """
         Проверить наличие значения в URL.
             :param value: строчное значение того, что мы ожидаем увидеть в URL
@@ -77,7 +77,7 @@ class BasePage:
         """
         try:
             WebDriverWait(self.browser, self.WAIT_TIMEOUT).until(
-                ec.url_contains(value))
+                ec.url_contains(CONFIG["baseUrl"]))
             return True
         except TimeoutException:
             return False
@@ -155,9 +155,6 @@ class BasePage:
         except TimeoutException:
             return False
 
-    def get_current_date(self) -> str:
-        """Получить текущую дату и временя, форматирвоват в строчное значение"""
-        return datetime.strftime(datetime.now(), "%d.%m.%Y %H:%M")
 
     def check_text_is_not_empty(self, locator: Tuple[str, str], timeout=4, ) -> bool:
         """
@@ -205,7 +202,17 @@ class BasePage:
             ec.visibility_of_element_located(AuthPageLocators.FIELD_PASSWORD)).send_keys(value)
 
 
-    def input_for_search_agent(self, value: str) -> None:
+    def input_for_search_agent(self) -> None:
+        """
+        Ввод в поле поиска значения по которому будет проходить поиск (ТОЛЬКО ВВОД, НЕ НАЖИМАЕТ НА "ПОИСК")
+            :param value: значение по которому мы ищем видео.
+            :raise TimeoutException: возникает, когда отчет не удалось найти по заданному имени.
+        """
+        WebDriverWait(self.browser, self.WAIT_TIMEOUT).until(
+            ec.visibility_of_element_located(AgentsLocators.MY_AGENTS_FIELD_SEARCH)).send_keys(CONFIG["ID_2"])
+
+
+    def input_for_search_agent_with_value(self, value: str) -> None:
         """
         Ввод в поле поиска значения по которому будет проходить поиск (ТОЛЬКО ВВОД, НЕ НАЖИМАЕТ НА "ПОИСК")
             :param value: значение по которому мы ищем видео.
@@ -213,6 +220,25 @@ class BasePage:
         """
         WebDriverWait(self.browser, self.WAIT_TIMEOUT).until(
             ec.visibility_of_element_located(AgentsLocators.MY_AGENTS_FIELD_SEARCH)).send_keys(value)
+
+
+    def search_all_inn(self, first_value: str) -> None:
+        """
+        Ввод в поле поиска значения по которому будет проходить поиск (ТОЛЬКО ВВОД, НЕ НАЖИМАЕТ НА "ПОИСК")
+            :param value: значение по которому мы ищем видео.
+            :raise TimeoutException: возникает, когда отчет не удалось найти по заданному имени.
+        """
+        WebDriverWait(self.browser, self.WAIT_TIMEOUT).until(
+            ec.visibility_of_element_located(AgentsLocators.INN_SEARCH_ALL)).send_keys(first_value)
+
+    def search_all_kpp(self, second_value: str) -> None:
+        """
+        Ввод в поле поиска значения по которому будет проходить поиск (ТОЛЬКО ВВОД, НЕ НАЖИМАЕТ НА "ПОИСК")
+            :param value: значение по которому мы ищем видео.
+            :raise TimeoutException: возникает, когда отчет не удалось найти по заданному имени.
+        """
+        WebDriverWait(self.browser, self.WAIT_TIMEOUT).until(
+            ec.visibility_of_element_located(AgentsLocators.KPP_SEARCH_ALL)).send_keys(second_value)
 
 
     def import_file(self, path_to_file: str):

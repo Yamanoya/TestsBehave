@@ -3,38 +3,30 @@ from behave import *
 from behave.runner import Context
 
 from features.locators.agents_page import AgentsLocators
-from features.locators.document_page import DocumentPageLocators
 from features.pages.agents_page import AgentsPage
 
 
-@Given('Открыт реестр Мои контрагенты')
+@Given('Открываем реестр Мои контрагенты')
 def given_incoming_page(context):
     AgentsPage(context.browser).open_agents()
     time.sleep(1)
 
-@Then('Нажимаем на реестр Контрагенты')
+@Then('Попадаем на страницу организаций')
+def open_all_organization(ctx: Context):
+    ctx.pages.base.check_an_element_is_present(AgentsLocators.MAIN_PAGE)
+
+@Then('Открывается карточка организации')
+def open_card_organization(ctx: Context):
+    ctx.pages.base.check_an_element_is_present(AgentsLocators.ORGANIZ_CARD)
+
+@Then('Переходим в реестр Контрагенты -> Мои контрагенты')
 def click_at_agents(ctx: Context):
-    """Нажать на реестр Контрагенты"""
     ctx.pages.base.click(AgentsLocators.AGENTS_LIST)
-
-
-@Then('Нажимаем на реестр Мои Контрагенты')
-def click_at_my_agents(ctx: Context):
-    """Нажать на реестр Мои Контрагенты"""
+    ctx.pages.base.check_an_element_is_present(AgentsLocators.MY_AGENTS_LIST)
     ctx.pages.base.click(AgentsLocators.MY_AGENTS_LIST)
-
-
-@When('Нажимаем на кнопку Добавить контрагента')
-def click_at_button_add_agent(ctx: Context):
-    """Нажать на кнопку Добавить контрагента"""
+    ctx.pages.base.check_an_element_is_present(AgentsLocators.ADD_MY_AGENT_BUTTON)
     ctx.pages.base.click(AgentsLocators.ADD_MY_AGENT_BUTTON)
-    time.sleep(3)
 
-
-#@When('Проверка кол-ва контрагентов {value}')
-#def check_value_agents_in_my_agents(ctx: Context, value: str):
-   # name = ctx.pages.base.get_text_from_element(AgentsLocators.MY_AGENTS_VALUE)
-   # assert name == value, f'Кол-во агентов "{name}", ожидалось "{value}"'
 
 
 @Then('Проверяем что открылась форма Добавление контрагента')
@@ -43,11 +35,15 @@ def check_value(ctx: Context):
     time.sleep(2)
 
 
-@When('Вводим в поле ID контрагента {value}')
-def input_for_search_agent(ctx: Context, value: str):
+@Then('Добавляем контрагента с ID {value}')
+def input_for_search_agent_with_value(ctx: Context, value: str):
     """Нажать на кнопку "Войти" в шапке сайта"""
-    ctx.pages.base.input_for_search_agent(value)
+    ctx.pages.base.input_for_search_agent_with_value(value)
     time.sleep(2)
+
+@Then('Добавляем контрагента')
+def add_agent(ctx: Context):
+    ctx.pages.base.input_for_search_agent()
 
 
 @Then('Проверяем найденого контрагента {name_agent}')
@@ -61,15 +57,16 @@ def send_invite_for_agent(ctx: Context):
     """Жмем кнопку отправить приглашение контрагенту"""
     ctx.pages.base.click(AgentsLocators.MY_AGENTS_SEND_INVITE_AGENT)
 
+@Then('Попадаем на организацию Получателя приглашения, в реестр Контрагенты -> Приглашения')
+def check_register(ctx: Context):
+    ctx.pages.base.check_an_element_is_present(AgentsLocators.NAME_AGENT)
 
 @When('Нажимаем на всплывающее сообщение')
 def click_at_sms(ctx: Context):
     ctx.pages.base.click(AgentsLocators.MY_AGENTS_REFRESH_LIST_BUTTON)
     time.sleep(3)
 
-
-
-@Then('Нажимаем на всплывающее сообщение')
+@When('Нажимаем Обновить список и перейти к приглашениям во всплывающем сообщении')
 def click_at_sms_about(ctx: Context):
     ctx.pages.base.click(AgentsLocators.MY_AGENTS_REFRESH_LIST_BUTTON_ABOUT)
 
@@ -94,37 +91,55 @@ def click_at_checkbox(ctx: Context):
     ctx.pages.base.click(AgentsLocators.INVITE_ACCEPT_BUTTON)
 
 
-@When('Проверка кол-ва контрагентов в Моих контрагентах {value_my_agents}')
+@Then('Кол-во контрагентов в Моих контрагентах становится равным {value_my_agents}')
 def check_value_my_agents(ctx: Context, value_my_agents: str):
     name = ctx.pages.base.get_text_from_element(AgentsLocators.VALUE_AGENTS_AT_MY_AGENTS)
     assert name == value_my_agents, f'Кол-во агентов "{name}", ожидалось "{value_my_agents}"'
 
 
-@Then('Проверка имени контрагента {value_name_agent}')
+@Then('Имя контрагента {value_name_agent}')
 def check_agent(ctx: Context, value_name_agent: str):
     name = ctx.pages.base.get_text_from_element(AgentsLocators.NAME_AGENT)
     assert name == value_name_agent, f'Кол-во агентов "{name}", ожидалось "{value_name_agent}"'
 
-@When('Нажимаем на организацию')
+@When('Выбираем организацию')
 def click(ctx: Context):
     """Нажать на Выбрать организацю"""
-    ctx.pages.base.click(DocumentPageLocators.TAKE_ORGANIZATION)
+    ctx.pages.base.click(AgentsLocators.TAKE_ORGANIZATION)
     time.sleep(1)
 
-@When('Наводим на элемент')
+@Then('Принимаем приглашение')
 def mouse_over(ctx: Context):
     ctx.pages.agents.mouse_over()
-
-
-@When("Нажимаем на кнопку Принять")
-def click_at_accept(ctx: Context):
+    time.sleep(2)
     ctx.pages.base.click(AgentsLocators.INVITE_ACCEPT_BUTTON)
 
 
-@Then("Наводим на элемент КПП")
+@Then("Выбираем запись")
 def mouse_over_kpp(ctx: Context):
     ctx.pages.agents.mouse_over_kpp()
 
-@Then("Нажимаем кнопку удалить")
+@Then("Удаляем запись")
 def delete_agent(ctx: Context):
     ctx.pages.base.click(AgentsLocators.DELETE_AGENT)
+
+
+@Then("Текст Возможно, вы ввели ID ЭДО не полностью")
+def check_text(ctx: Context):
+    ctx.pages.base.check_an_element_is_present(AgentsLocators.SEARCH_ALL, timeout=10)
+
+@Then("Нажать кнопку Расширенный поиск")
+def click_search(ctx: Context):
+    ctx.pages.base.click(AgentsLocators.SEARCH_ALL)
+
+@Then("На форме поиска контрагента по ИНН и КПП, вводим данные ИНН - {first_value} КПП {second_value}")
+def input_inn_kpp(ctx: Context, first_value: str, second_value: str):
+    ctx.pages.base.click(AgentsLocators.INN_SEARCH_ALL)
+    ctx.pages.base.search_all_inn(first_value)
+    time.sleep(1)
+    ctx.pages.base.click(AgentsLocators.KPP_SEARCH_ALL)
+    ctx.pages.base.search_all_kpp(second_value)
+    ctx.pages.base.click(AgentsLocators.FIND_BUTTON)
+
+
+

@@ -35,10 +35,5 @@ def click_do_search(ctx: Context):
     ctx.pages.base.click(AuthPageLocators.ENTER_BUTTON)
 
 
-@Then('В URL есть значение "{url}"')
-def check_url(ctx: Context, url):
-    """
-    Проверяет не полный урл, а наличие значения внутри урла страницы
-    """
-    assert ctx.pages.base.check_url_contains_value(url), f'В урле нет значения {url}'
-    time.sleep(5)
+
+

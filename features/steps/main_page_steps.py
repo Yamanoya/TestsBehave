@@ -10,12 +10,13 @@ def main_page_is_open(ctx: Context):
     # assert ctx.pages.main.url_is_main()
 
 
-@Given('В URL есть значение "{url}"')
-def check_url(ctx: Context, url=CONFIG['baseUrl']):
+@Given('Переходим на страницу тестируемого стенда')
+def check_url(ctx: Context):
     """
     Проверяет не полный урл, а наличие значения внутри урла страницы
     """
-    assert ctx.pages.base.check_url_contains_value(url), f'В урле нет значения {url}'
+    assert ctx.pages.base.check_url_contains_value()
+
 
 
 

@@ -1,7 +1,11 @@
 from selenium.webdriver.common.by import By
 
 class AgentsLocators:
+    # Главная страница
+    MAIN_PAGE = (By.XPATH, "//h1[contains(.,'Мои организации')]")
 
+    # Карточка организации
+    ORGANIZ_CARD = (By.XPATH, "//h1[contains(.,'Профиль организации')]")
 
     # Список Контрагенты
     AGENTS_LIST = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/nav[1]/ul[1]/li[2]/div[1]/button[1]/div[1]")
@@ -31,7 +35,7 @@ class AgentsLocators:
     INVITE_CHECKBOX_BUTTON = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/div[2]/div[1]/div[1]/button[1]/span[1]/*[name()='svg'][1]")
 
     # Запись _Тест3_
-    NAME_AGENT = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/div[1]/div[2]/div[1]/div[1]/span[1]")
+    NAME_AGENT = (By.XPATH, "//span[contains(.,'_Тест3_')]")
 
     # Кнопка Принять
     INVITE_ACCEPT_BUTTON = (By.XPATH,"/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/div[2]/div[1]/div[1]/button[1]/span[1]/*[name()='svg'][1]")
@@ -63,3 +67,20 @@ class AgentsLocators:
 
     # Кнопка удалить
     DELETE_AGENT = (By.XPATH,"/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/div[1]/div[1]/div[1]/button[1]/span[1]/*[name()='svg'][1]")
+
+    TAKE_ORGANIZATION = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/div[2]/a[1]/span[1]")
+
+    #Кнопка Расширенный поиск
+    SEARCH_ALL = (By.XPATH, "//button[contains(.,'расширенным поиском')]")
+
+    #поле ИНН в поиске
+    INN_SEARCH_ALL = (By.XPATH, "//input[@name='inn']")
+
+    #поле КПП в поиске
+    KPP_SEARCH_ALL = (By.XPATH, "//input[@name='kpp']")
+
+    # Пустое поле после поиска
+    CLEAR_FIELD = (By.XPATH, "xpath=//div[2]/div[5]")
+
+    #Кнопка Найти
+    FIND_BUTTON = (By.XPATH, "//span[contains(.,'Найти')]")
