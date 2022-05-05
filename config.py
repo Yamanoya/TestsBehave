@@ -11,7 +11,17 @@ SCREENSHOTS_PATH = os.path.join(BASE_PATH, "temp", "screenshots")
 
 # Вспомогательный словарь для хранения тест данных при использовании нескольких окружений.
 SETTINGS = {
-    "work": {
+    "work1": {
+        "baseUrl": "https://edo-1.cloud.astral-dev.ru/",
+        "mail": "astraledotest@mail.ru",
+        "password": "MakI123456",
+        "ID_1": "2AEB38AC744-9BDE-4337-A920-3D56E2F456F5",
+        "ID_2": "2AEF0AA2E31-3D84-4F87-ACD7-2001E810085E",
+        "INCOMING": "/f0aa2e31-3d84-4f87-acd7-2001e810085e/documents/incoming",
+        "OUTGOING": "/b38ac744-9bde-4337-a920-3d56e2f456f5/documents/outgoing",
+        "DRAFT": "/b38ac744-9bde-4337-a920-3d56e2f456f5/drafts",
+    },
+    "work2": {
         "baseUrl": "https://edo-2.cloud.astral-dev.ru/",
         "mail": "astraledotest@mail.ru",
         "password": "MakI123456",
@@ -20,6 +30,16 @@ SETTINGS = {
         "INCOMING": "/8be142a1-5b65-4fd8-b56a-e6ad69d7d1ae/documents/incoming",
         "OUTGOING": "/dcbf5864-b9cb-4ec7-801d-0e7a831b6bc2/documents/outgoing",
         "DRAFT": "/dcbf5864-b9cb-4ec7-801d-0e7a831b6bc2/drafts",
+    },
+    "work3": {
+        "baseUrl": "https://edo-3.cloud.astral-dev.ru/",
+        "mail": "astraledotest@mail.ru",
+        "password": "MakI123456",
+        "ID_1": "2AE794D3B1F-3E69-4295-91FB-1431130E73B7",
+        "ID_2": "2AE6A9E4BED-18B7-45E9-916A-E6D6DEA36E37",
+        "INCOMING": "/6a9e4bed-18b7-45e9-916a-e6d6dea36e37/documents/incoming",
+        "OUTGOING": "/794d3b1f-3e69-4295-91fb-1431130e73b7/documents/outgoing",
+        "DRAFT": "/794d3b1f-3e69-4295-91fb-1431130e73b7/drafts",
     },
     "staging": {
         "baseUrl": "https://edo.astral-dev.ru/",
