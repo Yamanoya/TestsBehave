@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from features.pages.repository import PageRepository
 from behave.model import Step
+from allure_behave.hooks import allure_report
 
 
 def browser_chrome(context: Context):
