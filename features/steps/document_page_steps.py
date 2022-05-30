@@ -50,11 +50,61 @@ def click(ctx: Context):
     time.sleep(2)
 
 
+@Then('Статус документа в черновиках "{name_status}"')
+def check_quantity_sign_in_button(ctx: Context, name_status: str):
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.ALL_STATUS, timeout=160)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
+    assert name == name_status, f'Статус документа "{name}", должно быть"{name_status}"'
+
+
+@When('Статус документа внутри "{name_status}"')
+def check_quantity_sign_in_button(ctx: Context, name_status: str):
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.ALL_STATUS, timeout=160)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
+    assert name == name_status, f'Статус документа "{name}", должно быть"{name_status}"'
+
+
 @Then('Статус документа "{name_status}"')
 def check_quantity_sign_in_button(ctx: Context, name_status: str):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.STATUS_DOCUMENT, timeout=160)
-    first_video_name = ctx.pages.base.get_text_from_element(DocumentPageLocators.STATUS_DOCUMENT)
-    assert first_video_name == name_status, f'Статус документа "{first_video_name}", ожидалось "{name_status}"'
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.STATUS_DOCUMENT)
+    assert name == name_status, f'Статус документа "{name}", ожидалось "{name_status}"'
+
+
+@When('Убираем получателя "{count}",статус документа {status}')
+def remove_recipient_check_status(ctx: Context, count: str, status: str):
+    count_agent = ctx.pages.base.get_text_from_element(DocumentPageLocators.FORM_AGENTS)
+    assert count_agent == count, f'Кол-во агентов "{count_agent}", должно быть "{count}"'
+    ctx.pages.base.click(DocumentPageLocators.FORM_AGENTS)
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.TAKING_AGENT, timeout=10)
+    time.sleep(1)
+    ctx.pages.base.click(DocumentPageLocators.TAKING_AGENT)
+    time.sleep(2)
+    ctx.pages.base.click(DocumentPageLocators.CLOSE_BUTTON2)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
+    assert name == status, f'Статус документа "{name}", должно быть "{status}"'
+
+
+@When('Убираем получателей "{counts}",статус документа {status1}')
+def remove_recipients_check_status(ctx: Context, counts: str, status1: str):
+    count_agents = ctx.pages.base.get_text_from_element(DocumentPageLocators.FORM_AGENTS)
+    assert count_agents == counts, f'Кол-во агентов "{count_agents}", должно быть "{counts}"'
+    ctx.pages.base.click(DocumentPageLocators.FORM_AGENTS)
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.TAKING_AGENT, timeout=30)
+    ctx.pages.base.click(DocumentPageLocators.TAKING_AGENT)
+    time.sleep(1)
+    ctx.pages.base.click(DocumentPageLocators.SECOND_RECIPIENT)
+    time.sleep(2)
+    ctx.pages.base.click(DocumentPageLocators.CLOSE_BUTTON)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
+    assert name == status1, f'Статус документа "{name}", должно быть "{status1}"'
+
+
+
+@When('Нажимаем Отмена')
+def click_cancel(ctx: Context):
+    """Нажать на Выбрать организацю"""
+    ctx.pages.base.click(DocumentPageLocators.BUTTON_CANCEL)
 
 
 @Then('Проверка имени файла "{name_document}"')
@@ -76,14 +126,31 @@ def check_quantity_sign_in_button(ctx: Context, name_document: str):
     assert name == name_document, f'Имя документа "{name}", ожидалось "{name_document}"'
 
 
-@When('Выбираем получателя')
-def click_at_sending(ctx: Context):
+@When('Выбираем получателя, статус документа "{name_document}"')
+def click_at_sending(ctx: Context, name_document: str):
     """Нажать на кнопку Выбрать получателя"""
     ctx.pages.base.click(DocumentPageLocators.TAKE_SENDING)
     time.sleep(1)
     ctx.pages.base.click(DocumentPageLocators.TAKE_AGENT)
     time.sleep(2)
     ctx.pages.base.click(DocumentPageLocators.CLOSE_BUTTON)
+    time.sleep(1)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
+    assert name == name_document, f'Статус документа "{name}", должно быть "{name_document}"'
+
+@When('Выбираем получателей, статус документа "{name_document}"')
+def take_recipients(ctx: Context, name_document: str):
+    """Нажать на кнопку Выбрать получателя"""
+    ctx.pages.base.click(DocumentPageLocators.TAKE_SENDING)
+    time.sleep(1)
+    ctx.pages.base.click(DocumentPageLocators.TAKE_AGENT)
+    time.sleep(2)
+    ctx.pages.base.click(DocumentPageLocators.TAKE_SECOND_AGENT)
+    time.sleep(1)
+    ctx.pages.base.click(DocumentPageLocators.CLOSE_BUTTON)
+    time.sleep(1)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
+    assert name == name_document, f'Статус документа "{name}", должно быть "{name_document}"'
 
 
 @Then('Проверяем присутствие получателя "{name_document}"')
@@ -128,6 +195,7 @@ def wait_alert_and_click(ctx: Context):
 def take_document(ctx: Context):
     ctx.pages.base.click(DocumentPageLocators.DOCUMENT_INCOMING)
 
+
 @Then('Выбираем документ в статусе "{value_status}"')
 def check_at_status_value(ctx: Context, value_status: str):
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.STATUS_WAIT_SIGNATURE_IN_DOCUMENT)
@@ -138,6 +206,7 @@ def check_at_status_value(ctx: Context, value_status: str):
 def take_document(ctx: Context):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.SIGN_A_DOCUMENT, timeout=160)
     ctx.pages.base.click(DocumentPageLocators.SIGN_A_DOCUMENT)
+    time.sleep(2)
 
 
 @Then('Ожидаем всплывающее сообщение "Документ подписан"')
@@ -173,13 +242,20 @@ def check_registry(ctx: Context, value_one: str):
 def check_at_status_value(ctx: Context, value_status: str):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.END_DOCUMENT, timeout=160)
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.END_DOCUMENT)
-    assert name == value_status, f'Должно быть входящий докумет "{name}", ожидалось "{value_status}"'
+    assert name == value_status, f'Должно быть входящий документ "{name}", ожидалось "{value_status}"'
 
 
 @When('Аннулируем документ')
 def click_at_cancel_document(ctx: Context):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.DECLINE_BUTTON, timeout=160)
     ctx.pages.base.click(DocumentPageLocators.DECLINE_BUTTON)
+
+
+@When('Проверяем что появилась кнопка "{value}"')
+def click_at_cancel_document(ctx: Context, value: str):
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.DECLINE_BUTTON, timeout=160)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.DECLINE_BUTTON)
+    assert name == value, f'Имя кнопки "{name}", должно быть "{value}"'
 
 
 @Then('Откроется форма {value}')
@@ -206,8 +282,8 @@ def wait_form_about_cancel_and_click_more(ctx: Context):
 
 @When('Проверяем наличие текста {value}')
 def check_at_open_form(ctx: Context, value: str):
-    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.STATUS_NEED_CANCEL, timeout=160)
-    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.STATUS_NEED_CANCEL)
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.ALL_STATUS, timeout=160)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
     assert name == value, f'Должно быть "{name}", ожидалось "{value}"'
 
 
@@ -250,10 +326,10 @@ def click_at_document_in_status_is_cancel(ctx: Context):
     ctx.pages.base.click(DocumentPageLocators.REGISTER_OFFER_CANCEL)
 
 
-@Then('Жмем кнопку Отклонить')
+@Then('Жмем кнопку Отменить')
 def click_at_reject_cancel(ctx: Context):
-    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.BUTTON_REJECT_CANCEL, timeout=90)
-    ctx.pages.base.click(DocumentPageLocators.BUTTON_REJECT_CANCEL)
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.CANCEL_BUTTON, timeout=90)
+    ctx.pages.base.click(DocumentPageLocators.CANCEL_BUTTON)
 
 
 @Then('Ожидаем появления формы {value_text}')
@@ -307,7 +383,6 @@ def check_at_open_form(ctx: Context):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.NOTIFICATION_TEXT, timeout=160)
 
 
-
 @Then('Вводим причину отклонения {value} и нажимаем Принять')
 def click_at_field_and_write_text(ctx: Context, value: str):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.FIELD_ACCEPT_CANCEL, timeout=10)
@@ -332,8 +407,23 @@ def click_at_flag(ctx: Context):
     ctx.pages.base.click(DocumentPageLocators.FLAG_RESPONSE_SIGNATURE)
     time.sleep(2)
 
+@Then('Жмем кнопку Отклонить')
+def click_at_decline(ctx:Context):
+    ctx.pages.base.click(DocumentPageLocators.DECLINE_BUTTON_CANCEL)
+
 @Then('Ошибка о 0 байтах {value}')
 def check_text_value(ctx: Context, value: str):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.NULL_BYTES, timeout=10)
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.NULL_BYTES)
     assert name == value, f'Должно быть "{name}", ожидалось "{value}"'
+
+
+@When('Проверяем визуализацию')
+def check_visualization(ctx: Context):
+    ctx.pages.base.check_an_element_is_not_present(DocumentPageLocators.VISUALIZATION, timeout=5)
+
+@When('У документа два Получателя')
+def check_recipient(ctx: Context):
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.TWO_RECIPIENTS)
+    ctx.pages.base.click(DocumentPageLocators.DOCUMENT_ADD_LOCATOR)
+

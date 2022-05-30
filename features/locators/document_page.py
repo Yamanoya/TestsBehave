@@ -19,6 +19,12 @@ class DocumentPageLocators:
     # Локатор для получения текста статуса документа
     STATUS_DOCUMENT = (By.XPATH, "//a/div[4]")
 
+    # Отклонить на форме ввода причины аннулирования
+    BUTTON_CANCEL = (By.XPATH, "//form/div[3]/button")
+
+    # Визуализация внутри документа
+    VISUALIZATION = (By.XPATH, '/html[1]/body[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/main[1]/div[1]')
+
     # Локатор для выбора документа
     SELECT_DOCUMENT = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/a[1]")
 
@@ -32,13 +38,19 @@ class DocumentPageLocators:
     TAKE_SENDING = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/a[1]")
 
     # Выбрать контрагента
-    TAKE_AGENT = (By.XPATH,"//div[2]/div/div/div/ul/li")
+    TAKE_AGENT = (By.XPATH, "//div/ul/li[2]")
+
+    # Выбрать второго контрагента
+    TAKE_SECOND_AGENT = (By.XPATH, "//div[2]/div[2]/div/div/div/ul/li")
 
     # Локато на кол-во выбратнных агентов
     TAKE_ALL_AGENTS = (By.XPATH, "//div[2]/div[3]/div/div/div/div/div")
 
-    # Пустое поле
+    # Кнопка закрытия формы выбора контрагента
     CLOSE_BUTTON = (By.XPATH, "(//button[@type='button'])[14]")
+
+    # Кнопка закрытия формы выбора контрагента, для его удаления
+    CLOSE_BUTTON2 = (By.XPATH, "(//button[@type='button'])[13]")
 
     # Кнопка отправить
     SEND_BUTTON = (By.XPATH, "//span[contains(.,'Отправить')]")
@@ -67,7 +79,6 @@ class DocumentPageLocators:
     # Кликаем по документу в реестре Входящие
     DOCUMENT_INCOMING = (By.XPATH, "//div[@id='root']/div/div/div[2]/main/div/ul/li/a")
 
-
     # Кнопка подписать документ внутри документа
     SIGN_A_DOCUMENT = (By.XPATH, "//span[contains(.,'Подписать документ')]")
 
@@ -89,11 +100,17 @@ class DocumentPageLocators:
     # Реестр Извещение о получении
     REGISTRY_RECEIPT_NOTICE = (By.XPATH, "//a[contains(.,'Извещение о получении')]")
 
-    # Статус требуется аннулирование
-    STATUS_NEED_CANCEL = (By.XPATH, "//nav/div/div[2]")
+    # Локатор, статусов документа
+    ALL_STATUS = (By.XPATH, "//nav/div/div[2]")
+
+    # Форма кол-ва выбранных получателей
+    FORM_AGENTS = (By.XPATH, "//a[contains(.,'Получатели')]")
 
     # Реестр Титул получателя
     REGISTRY_BENEFICIARY_TITLE = (By.XPATH, "//a[contains(.,'Титул получателя')]")
+
+    # Контрагент который выбран в качестве получателя
+    TAKING_AGENT = (By.XPATH, "//div[2]/div/div/div/ul/li")
 
     # Статус внутри документа Завершен
     END_DOCUMENT = (By.XPATH, "//nav/div/div[2]")
@@ -166,3 +183,26 @@ class DocumentPageLocators:
 
     # Сообщение о 0 байтах
     NULL_BYTES = (By.XPATH, "//li[contains(.,'0ByteNeformal.txt - Размер файла не может быть меньше 1 Байт')]")
+
+    # + еще 1 когда выбираем два получателя
+    TWO_RECIPIENTS = (By.XPATH, "//div[3]/div/div[2]/div")
+
+    # Кнопка Отменить
+    CANCEL_BUTTON = (By.XPATH, "//form/div[3]/button")
+
+    # Кнопка Отменить, в момент Аннулирования документа
+    DECLINE_BUTTON_CANCEL = (By.XPATH, "//button[contains(.,'Отклонить')]")
+
+
+
+
+
+
+    # Локатор второго контрагента, чтобы убрать его из получателей
+
+    SECOND_RECIPIENT = (By.XPATH, "//div/ul/li[2]")
+
+    # Локатор Входящего документа у Первого получателя
+    FIRST_RECIPIENT = (By.XPATH, "//div/div/div[2]/div/div")
+
+    # Локтаор Входящего документа у Второго получателя

@@ -64,7 +64,7 @@ SETTINGS = {
 }
 
 # Если окружение не указано, по умолчанию откроется прод
-STAND = os.environ.get('STAND', 'prod')
+STAND = os.environ.get('STAND', 'work2')
 CONFIG = SETTINGS[STAND]
 
 # Создаем директорию для хранения скриншотов

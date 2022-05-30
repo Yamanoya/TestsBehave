@@ -28,3 +28,9 @@ class DocumentPage(BasePage):
     def input_text_in_field_cancel(self, value: str) -> None:
         WebDriverWait(self.browser, self.WAIT_TIMEOUT).until(
             ec.visibility_of_element_located(DocumentPageLocators.FIELD_FOR_ADD_TEXT)).send_keys(value)
+
+
+
+
+
+
