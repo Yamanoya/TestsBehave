@@ -8,4 +8,4 @@ __pycache__/
 env/
 venv/
 temp/
-allure_result/
+/allure_result/
