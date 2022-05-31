@@ -50,15 +50,8 @@ def click(ctx: Context):
     time.sleep(2)
 
 
-@Then('Статус документа в черновиках "{name_status}"')
-def check_quantity_sign_in_button(ctx: Context, name_status: str):
-    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.ALL_STATUS, timeout=160)
-    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
-    assert name == name_status, f'Статус документа "{name}", должно быть"{name_status}"'
-
-
 @When('Статус документа внутри "{name_status}"')
-def check_quantity_sign_in_button(ctx: Context, name_status: str):
+def check_in_form_document(ctx: Context, name_status: str):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.ALL_STATUS, timeout=160)
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
     assert name == name_status, f'Статус документа "{name}", должно быть"{name_status}"'
@@ -238,13 +231,6 @@ def check_registry(ctx: Context, value_one: str):
     assert name == value_one, f'Должно быть "{name}", ожидалось "{value_one}"'
 
 
-@Then('Проверяем внутри документа статус {value_status}')
-def check_at_status_value(ctx: Context, value_status: str):
-    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.END_DOCUMENT, timeout=160)
-    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.END_DOCUMENT)
-    assert name == value_status, f'Должно быть входящий документ "{name}", ожидалось "{value_status}"'
-
-
 @When('Аннулируем документ')
 def click_at_cancel_document(ctx: Context):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.DECLINE_BUTTON, timeout=160)
@@ -280,13 +266,6 @@ def wait_form_about_cancel_and_click_more(ctx: Context):
     ctx.pages.base.click(DocumentPageLocators.MESSAGE_ABOUT_CANCEL)
 
 
-@When('Проверяем наличие текста {value}')
-def check_at_open_form(ctx: Context, value: str):
-    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.ALL_STATUS, timeout=160)
-    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
-    assert name == value, f'Должно быть "{name}", ожидалось "{value}"'
-
-
 @Then('Проверяем что находимся в реестре {value}')
 def check_at_open_form(ctx: Context, value: str):
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.REGISTER_CANCEL_INGOING)
@@ -302,16 +281,6 @@ def click_at_cancel(ctx: Context):
 @Then('Аннулирование одобрено')
 def check_cancel_is_okay(ctx: Context):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.CANCEL_IS_OKAY, timeout=160)
-
-
-@Then('Статус документа Аннулирован')
-def check_cancel_is_okay(ctx: Context):
-    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.DOCUMENT_IS_CANCEL, timeout=160)
-
-
-@Then('Ссылка в документе Документ аннулирован')
-def check_cancel_is_okay(ctx: Context):
-    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.DOCUMENT_IS_CANCEL_IN_DOCUMENT, timeout=160)
 
 
 @When('Выбираем документ в статусе Требуется аннулирование')
