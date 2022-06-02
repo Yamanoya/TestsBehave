@@ -16,6 +16,12 @@ class DocumentPageLocators:
     # Локатор реестра Черновики
     RES_CHER = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[1]/nav[1]/ul[1]/li[1]/ul[1]/div[1]/div[1]/div[3]/a[1]/div[1]")
 
+    # Локатор Исходящие
+    RES_OUTGOING = (By.XPATH, "//a[contains(.,'Исходящие')]")
+
+    # Локатор для получения статусов в Исходящих
+    OUTGOING_STATUS = (By.XPATH, "/html[1]/body[1]/div[7]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/a[1]/div[4]/span[1]")
+
     # Локатор для получения текста статуса документа
     STATUS_DOCUMENT = (By.XPATH, "//a/div[4]")
 
@@ -105,6 +111,9 @@ class DocumentPageLocators:
 
     # Форма кол-ва выбранных получателей
     FORM_AGENTS = (By.XPATH, "//a[contains(.,'Получатели')]")
+
+    # Локатор документа в черновиках
+    DRAFT_STATUS = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/main[1]/div[1]/ul[1]/li[1]/a[1]/div[4]")
 
     # Реестр Титул получателя
     REGISTRY_BENEFICIARY_TITLE = (By.XPATH, "//a[contains(.,'Титул получателя')]")

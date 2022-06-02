@@ -57,6 +57,13 @@ def check_in_form_document(ctx: Context, name_status: str):
     assert name == name_status, f'Статус документа "{name}", должно быть"{name_status}"'
 
 
+@When('Статус документа в черновиках "{name_status}"')
+def check_in_form_document(ctx: Context, name_status: str):
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.DRAFT_STATUS, timeout=160)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.DRAFT_STATUS)
+    assert name == name_status, f'Статус документа "{name}", должно быть"{name_status}"'
+
+
 @Then('Статус документа "{name_status}"')
 def check_quantity_sign_in_button(ctx: Context, name_status: str):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.STATUS_DOCUMENT, timeout=160)
@@ -91,7 +98,6 @@ def remove_recipients_check_status(ctx: Context, counts: str, status1: str):
     ctx.pages.base.click(DocumentPageLocators.CLOSE_BUTTON)
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
     assert name == status1, f'Статус документа "{name}", должно быть "{status1}"'
-
 
 
 @When('Нажимаем Отмена')
@@ -130,6 +136,7 @@ def click_at_sending(ctx: Context, name_document: str):
     time.sleep(1)
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
     assert name == name_document, f'Статус документа "{name}", должно быть "{name_document}"'
+
 
 @When('Выбираем получателей, статус документа "{name_document}"')
 def take_recipients(ctx: Context, name_document: str):
@@ -187,6 +194,15 @@ def wait_alert_and_click(ctx: Context):
 @When('Кликаем по документу в реестре Входящие')
 def take_document(ctx: Context):
     ctx.pages.base.click(DocumentPageLocators.DOCUMENT_INCOMING)
+
+
+@When('Открываем Исходящие и проверяем статус "{value}"')
+def outgoing_and_check_status(ctx: Context, value: str):
+    ctx.pages.base.click(DocumentPageLocators.RES_OUTGOING)
+    time.sleep(2)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.OUTGOING_STATUS, timeout=30)
+    assert name == value, f'Итог: "{name}", ожидалось "{value}"'
+
 
 
 @Then('Выбираем документ в статусе "{value_status}"')
@@ -376,9 +392,11 @@ def click_at_flag(ctx: Context):
     ctx.pages.base.click(DocumentPageLocators.FLAG_RESPONSE_SIGNATURE)
     time.sleep(2)
 
+
 @Then('Жмем кнопку Отклонить')
-def click_at_decline(ctx:Context):
+def click_at_decline(ctx: Context):
     ctx.pages.base.click(DocumentPageLocators.DECLINE_BUTTON_CANCEL)
+
 
 @Then('Ошибка о 0 байтах {value}')
 def check_text_value(ctx: Context, value: str):
@@ -391,8 +409,8 @@ def check_text_value(ctx: Context, value: str):
 def check_visualization(ctx: Context):
     ctx.pages.base.check_an_element_is_not_present(DocumentPageLocators.VISUALIZATION, timeout=5)
 
+
 @When('У документа два Получателя')
 def check_recipient(ctx: Context):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.TWO_RECIPIENTS)
     ctx.pages.base.click(DocumentPageLocators.DOCUMENT_ADD_LOCATOR)
-
