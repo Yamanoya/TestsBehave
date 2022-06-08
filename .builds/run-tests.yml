@@ -1,0 +1,52 @@
+pool:
+  name: DockerPool
+
+resources:
+  pipelines:
+  - pipeline: dashboard-api
+    source: dashboard-api
+    trigger: 
+      branches:
+        include: 
+        - astral-edo-*
+
+variables:
+- name: projectName
+  value: e2e
+- name: ImageTag
+  value: $(Build.SourceBranchName)
+
+stages:
+- stage: run_dev
+  displayName: Run test
+  jobs:
+  - deployment: deploy_dev_work1
+    pool: DockerPool
+    environment: tests
+    condition: eq(variables['resources.pipeline.dashboard-api.sourceBranch'], 'refs/heads/astral-edo-1')
+    variables:
+      STAND: work1
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: templates/runTestsOnStand.yaml
+            parameters:
+              projectName: '$(projectName)'
+              stand: $(STAND)
+              tag: '$(ImageTag)'
+  - deployment: deploy_dev_work2
+    pool: DockerPool
+    environment: tests
+    condition: eq(variables['resources.pipeline.dashboard-api.sourceBranch'], 'refs/heads/astral-edo-2')
+    variables:
+      STAND: work2
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: templates/runTestsOnStand.yaml
+            parameters:
+              projectName: '$(projectName)'
+              stand: $(STAND)
+              tag: '$(ImageTag)'

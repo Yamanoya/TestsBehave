@@ -1,0 +1,30 @@
+pool:
+  name: DockerPool
+
+trigger:
+  branches:
+    include:
+      - main
+
+variables:
+- group: harbor-variables
+- name: projectName
+  value: e2e
+- name: projectPath
+  value: ./
+- name: ImageTag
+  value: $(Build.SourceBranchName)-$(Build.BuildId)
+
+stages:
+- stage: build
+  displayName: Build
+  jobs:
+  - job: build
+    displayName: Build and push
+    pool: DockerPool
+    steps:
+    - template: templates/buildPush.yaml
+      parameters:
+        projectName: '$(projectName)'
+        projectPath: '$(projectPath)'
+        tag: '$(ImageTag)'
