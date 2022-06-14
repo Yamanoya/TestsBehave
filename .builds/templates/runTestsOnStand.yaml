@@ -1,0 +1,27 @@
+parameters:
+  projectName: ''
+  stand: ''
+  repository: 'harbor.infra.yandex.astral-dev.ru/astral-edo/tests'
+  tag: ''
+steps:
+- checkout: none
+- download: none
+- task: Docker@2
+  displayName: login
+  inputs:
+    containerRegistry: Yandex Harbor Registry
+    command: login
+- bash: |
+    docker pull ${{ parameters.repository }}/${{ parameters.projectName }}:${{ parameters.tag }}
+- bash: |
+    docker run \
+    --name e2e-${{ parameters.stand }}-${{ parameters.tag }} \
+    --rm \
+    -e STAND=${{ parameters.stand }} \
+    ${{ parameters.repository }}/${{ parameters.projectName }}:${{ parameters.tag }}
+  displayName: Run on ${{ parameters.stand }}
+- task: Docker@2
+  displayName: login
+  inputs:
+    containerRegistry: Yandex Harbor Registry
+    command: logout
