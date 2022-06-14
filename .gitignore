@@ -9,3 +9,4 @@ env/
 venv/
 temp/
 /allure_result/
+.builds
