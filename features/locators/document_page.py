@@ -82,6 +82,9 @@ class DocumentPageLocators:
     # Выбираем документ
     DOCUMENT_ADD_LOCATOR = (By.XPATH, "//a/div[2]/div")
 
+    # Второй документ
+    SECOND_DOCUMENT = (By.XPATH, "//li[2]/a/div[4]/span")
+
     # Кликаем по документу в реестре Входящие
     DOCUMENT_INCOMING = (By.XPATH, "//div[@id='root']/div/div/div[2]/main/div/ul/li/a")
 
@@ -108,6 +111,9 @@ class DocumentPageLocators:
 
     # Локатор, статусов документа
     ALL_STATUS = (By.XPATH, "//nav/div/div[2]")
+
+    # Строка с документом и получателями
+    DOCUMENT_DRAFT = (By.XPATH, "//main/div/ul/li/div")
 
     # Форма кол-ва выбранных получателей
     FORM_AGENTS = (By.XPATH, "//a[contains(.,'Получатели')]")

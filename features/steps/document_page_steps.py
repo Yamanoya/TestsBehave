@@ -55,6 +55,7 @@ def check_in_form_document(ctx: Context, name_status: str):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.ALL_STATUS, timeout=160)
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.ALL_STATUS)
     assert name == name_status, f'Статус документа "{name}", должно быть"{name_status}"'
+    ctx.pages.base.check_an_element_is_not_present(DocumentPageLocators.DOCUMENT_DRAFT, timeout=60)
 
 
 @When('Статус документа в черновиках "{name_status}"')
@@ -62,6 +63,23 @@ def check_in_form_document(ctx: Context, name_status: str):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.DRAFT_STATUS, timeout=160)
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.DRAFT_STATUS)
     assert name == name_status, f'Статус документа "{name}", должно быть"{name_status}"'
+
+
+@When('Статус сменился на "{status_outgoing}"')
+def check_in_form_document(ctx: Context, status_outgoing: str):
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.OUTGOING_STATUS, timeout=160)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.OUTGOING_STATUS)
+    assert name == status_outgoing, f'Статус документа "{name}", должно быть"{status_outgoing}"'
+
+@When('Кнопки Аннулировать нет')
+def check_cancel_button(ctx: Context):
+    ctx.pages.base.check_an_element_is_not_present(DocumentPageLocators.CANCEL_BUTTON, timeout=5)
+
+@When('Статус "{status_ougoing2}"')
+def check_in_form_document(ctx: Context, status_ougoing2: str):
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.OUTGOING_STATUS, timeout=160)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.OUTGOING_STATUS)
+    assert name == status_ougoing2, f'Статус документа "{name}", должно быть"{status_ougoing2}"'
 
 
 @Then('Статус документа "{name_status}"')
@@ -187,9 +205,9 @@ def check_at_status_value(ctx: Context, value_status: str):
 
 
 @Then('Появляется всплывающее сообщение')
-def wait_alert_and_click(ctx: Context):
+def wait_alert(ctx: Context):
     ctx.pages.base.check_an_element_is_present(DocumentPageLocators.INCOMING_DOCUMENT, timeout=30)
-
+    ctx.pages.base.check_an_element_is_not_present(DocumentPageLocators.DOCUMENT_ADD_LOCATOR, timeout=60)
 
 @When('Кликаем по документу в реестре Входящие')
 def take_document(ctx: Context):
@@ -203,6 +221,15 @@ def outgoing_and_check_status(ctx: Context, value: str):
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.OUTGOING_STATUS, timeout=30)
     assert name == value, f'Итог: "{name}", ожидалось "{value}"'
 
+
+@When('Открываем Исходящие и проверяем статус у двух документов "{value1}, {value2}"')
+def outgoing_and_check_status(ctx: Context, value1: str, value2: str):
+    ctx.pages.base.click(DocumentPageLocators.RES_OUTGOING)
+    time.sleep(2)
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.OUTGOING_STATUS, timeout=30)
+    assert name == value1, f'Итог: "{name}", ожидалось "{value1}"'
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.SECOND_DOCUMENT, timeout=30)
+    assert name == value2, f'Итог: "{name}", ожидалось "{value2}"'
 
 
 @Then('Выбираем документ в статусе "{value_status}"')
@@ -386,6 +413,11 @@ def check_status_document(ctx: Context, value: str, value_notification: str):
     name = ctx.pages.base.get_text_from_element(DocumentPageLocators.REGISTER_NOTIFICATION)
     assert name == value_notification, f'Должно быть "{name}", ожидалось "{value_notification}"'
 
+
+@When('Статус документа "{value}"')
+def status_decline(ctx: Context, value: str):
+    name = ctx.pages.base.get_text_from_element(DocumentPageLocators.OUTGOING_STATUS, timeout=160)
+    assert name == value, f'Должно быть "{name}", но статус "{value}"'
 
 @Then('Устанавливаем флаг Ответная подпись')
 def click_at_flag(ctx: Context):
