@@ -14,7 +14,7 @@ variables:
 - name: projectName
   value: e2e
 - name: ImageTag
-  value: $(Build.SourceBranchName)
+  value: latest
 
 stages:
 - stage: run_dev
