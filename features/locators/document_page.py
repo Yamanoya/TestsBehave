@@ -44,7 +44,7 @@ class DocumentPageLocators:
     TAKE_SENDING = (By.XPATH, "/html[1]/body[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/a[1]")
 
     # Выбрать контрагента
-    TAKE_AGENT = (By.XPATH, "//div/ul/li[2]")
+    TAKE_AGENT = (By.XPATH, "//div[2]/div/div/div/ul/li")
 
     # Выбрать второго контрагента
     TAKE_SECOND_AGENT = (By.XPATH, "//div[2]/div[2]/div/div/div/ul/li")
@@ -208,7 +208,8 @@ class DocumentPageLocators:
     # Кнопка Отменить, в момент Аннулирования документа
     DECLINE_BUTTON_CANCEL = (By.XPATH, "//button[contains(.,'Отклонить')]")
 
-
+    # Локатор ИОП
+    IOP_LOCATOR = (By.XPATH, "//a[contains(.,'Подтверждение даты получения')]")
 
 
 

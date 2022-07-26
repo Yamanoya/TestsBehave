@@ -3,6 +3,12 @@ import os
 # Путь до папки с проектом
 BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 
+# Адрес внешнего chrome webdriver
+REMOTE_CHROME_DRIVER_URL = os.environ.get('REMOTE_CHROME_DRIVER_URL', None)
+
+# Режим запуска тестов без графического интерфейса браузера
+HEADLESS_MODE = os.environ.get('HEADLESS_MODE', False)
+
 # Путь до папки с файлами для импорта
 REPORTS_FOR_IMPORT_PATH = os.path.join(BASE_PATH, "test_data", "files", "reports")
 
@@ -64,7 +70,7 @@ SETTINGS = {
 }
 
 # Если окружение не указано, по умолчанию откроется прод
-STAND = os.environ.get('STAND', 'work2')
+STAND = os.environ.get('STAND', 'staging')
 CONFIG = SETTINGS[STAND]
 
 # Создаем директорию для хранения скриншотов

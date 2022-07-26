@@ -1,32 +1,25 @@
+import time
 from behave import fixture, use_fixture
 from behave.model import Scenario, Tag
 from behave.runner import Context
 from selenium import webdriver
+from selenium.webdriver import DesiredCapabilities
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 from features.pages.repository import PageRepository
 from behave.model import Step
+import config
 from allure_behave.hooks import allure_report
 
 
 def browser_chrome(context: Context):
-    # создаем объект класа ChromeOptions для добавления параметров при запуске хрома.
-    # Каждый параметр можно погуглить :)
     options = webdriver.ChromeOptions()
+    options.add_argument('no-sandbox')
+    options.add_argument('disable-extensions')
     options.add_argument('start-maximized')
-    options.add_argument('disable-infobars')
-    options.add_argument('headless')
 
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-extensions')
-    options.add_argument('--start-maximized')
-    options.add_argument('--disable-dev-shm-usage')
-    
-    # Обявляем экземпляр класа хромдрайвера ChromeDriverManager класс для автоматического скачивания драйвера
-    # В будущем соответственно вызываем браузер через контекст как показано ниже.
     browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     context.browser = browser
-    # Служит для закрытия браузера в конце тестов или при их падении
     yield context.browser
     context.browser.quit()
 

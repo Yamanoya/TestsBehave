@@ -133,7 +133,7 @@ def check_quantity_sign_in_button(ctx: Context, name_document: str):
 
 @When('Выбираем документ')
 def take_document(ctx: Context):
-    time.sleep(8)
+    time.sleep(3)
     ctx.pages.base.click(DocumentPageLocators.DOCUMENT_ADD_LOCATOR)
 
 
@@ -244,6 +244,9 @@ def take_document(ctx: Context):
     ctx.pages.base.click(DocumentPageLocators.SIGN_A_DOCUMENT)
     time.sleep(2)
 
+@When('Ожидаем ИОП')
+def wait_iop(ctx: Context):
+    ctx.pages.base.check_an_element_is_present(DocumentPageLocators.IOP_LOCATOR, timeout=160)
 
 @Then('Ожидаем всплывающее сообщение "Документ подписан"')
 def wait_alert_about_click_take_document(ctx: Context):
